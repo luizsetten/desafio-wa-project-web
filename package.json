@@ -1,11 +1,11 @@
 {
-  "name": "PROJECT-SLUG",
+  "name": "desafio-luiz-setten-web",
   "description": "Front Base for React Admin",
   "version": "0.0.1",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "%PROJECT-REPO%",
+    "url": "git@github.com:luizsetten/desafio-wa-project-api.git",
     "seed": "git@bitbucket.org:waproject/waproject-base-web.git"
   },
   "scripts": {

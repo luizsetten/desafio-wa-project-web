@@ -1,4 +1,4 @@
-Projeto Base React
+desafio-luiz-setten-web
 ==================
 
 Utilize o VSCode, já está configurado com sugestão de extensões.

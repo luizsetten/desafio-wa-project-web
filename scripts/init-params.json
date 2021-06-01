@@ -1,0 +1,11 @@
+{
+  "project": "desafio-luiz-setten-web",
+  "repository": "git@github.com:luizsetten/desafio-wa-project-api.git",
+  "endpointDev": "http://localhost:3001",
+  "endpointProd": "",
+  "dockerImage": "waproject/desafio-luiz-setten-web",
+  "dockerCredentials": "",
+  "sentryDsn": "",
+  "confirmed": true,
+  "slug": "desafio-luiz-setten-web"
+}
