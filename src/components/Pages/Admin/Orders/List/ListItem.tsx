@@ -34,7 +34,7 @@ const ListItem = memo((props: IProps) => {
   }, [onEdit, user]);
 
   const [handleDelete] = useCallbackObservable(() => {
-    return from(Alert.confirm(`Deseja excluir o usuário ${user.firstName}?`)).pipe(
+    return from(Alert.confirm(`Deseja excluir o pedido ${user.firstName}?`)).pipe(
       filter(ok => ok),
       tap(() => setLoading(true)),
       switchMap(() => userService.delete(user.id)),
@@ -67,7 +67,9 @@ const ListItem = memo((props: IProps) => {
 
   return (
     <TableRow>
+      <TableCell>{user.id}</TableCell>
       <TableCell>{user.fullName}</TableCell>
+      <TableCell>{user.email}</TableCell>
       <TableCell>{user.email}</TableCell>
       <TableCellActions options={options} loading={loading} error={error} onDismissError={handleDismissError} />
     </TableRow>

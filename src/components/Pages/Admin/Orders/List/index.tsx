@@ -59,7 +59,7 @@ const UserListPage = memo(() => {
 
   return (
     <Fragment>
-      <Toolbar title='Usuários' />
+      <Toolbar title='Pedidos' />
 
       <Card>
         <FormDialog opened={formOpened} user={current} onComplete={formCallback} onCancel={formCancel} />
@@ -84,16 +84,27 @@ const UserListPage = memo(() => {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCellSortable paginationParams={params} disabled={loading} onChange={mergeParams} column='id'>
+                  ID
+                </TableCellSortable>
                 <TableCellSortable
                   paginationParams={params}
                   disabled={loading}
                   onChange={mergeParams}
-                  column='fullName'
+                  column='description'
                 >
-                  Nome
+                  Descrição
                 </TableCellSortable>
-                <TableCellSortable paginationParams={params} disabled={loading} onChange={mergeParams} column='email'>
-                  Email
+                <TableCellSortable
+                  paginationParams={params}
+                  disabled={loading}
+                  onChange={mergeParams}
+                  column='quantity'
+                >
+                  Quantidade
+                </TableCellSortable>
+                <TableCellSortable paginationParams={params} disabled={loading} onChange={mergeParams} column='value'>
+                  Valor
                 </TableCellSortable>
                 <TableCellActions>
                   <IconButton disabled={loading} onClick={handleRefresh}>
