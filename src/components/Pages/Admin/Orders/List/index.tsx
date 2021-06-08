@@ -16,21 +16,21 @@ import TableCellSortable from 'components/Shared/Pagination/TableCellSortable';
 import TablePagination from 'components/Shared/Pagination/TablePagination';
 import TableWrapper from 'components/Shared/TableWrapper';
 import usePaginationObservable from 'hooks/usePagination';
-import IUser from 'interfaces/models/user';
+import IOrder from 'interfaces/models/order';
 import RefreshIcon from 'mdi-react/RefreshIcon';
 import React, { Fragment, memo, useCallback, useState } from 'react';
-import userService from 'services/user';
+import orderService from 'services/order';
 
 import FormDialog from '../FormDialog';
 import ListItem from './ListItem';
 
 const UserListPage = memo(() => {
   const [formOpened, setFormOpened] = useState(false);
-  const [current, setCurrent] = useState<IUser>();
+  const [current, setCurrent] = useState<IOrder>();
 
   const [params, mergeParams, loading, data, error, , refresh] = usePaginationObservable(
-    params => userService.list(params),
-    { orderBy: 'fullName', orderDirection: 'asc' },
+    params => orderService.list(params),
+    { orderBy: 'id', orderDirection: 'asc' },
     []
   );
 
@@ -39,15 +39,15 @@ const UserListPage = memo(() => {
     setFormOpened(true);
   }, []);
 
-  const handleEdit = useCallback((current: IUser) => {
+  const handleEdit = useCallback((current: IOrder) => {
     setCurrent(current);
     setFormOpened(true);
   }, []);
 
   const formCallback = useCallback(
-    (user?: IUser) => {
+    (order?: IOrder) => {
       setFormOpened(false);
-      current ? refresh() : mergeParams({ term: user.email });
+      current ? refresh() : mergeParams({ term: order.description });
     },
     [current, mergeParams, refresh]
   );
@@ -62,7 +62,7 @@ const UserListPage = memo(() => {
       <Toolbar title='Pedidos' />
 
       <Card>
-        <FormDialog opened={formOpened} user={current} onComplete={formCallback} onCancel={formCancel} />
+        <FormDialog opened={formOpened} order={current} onComplete={formCallback} onCancel={formCancel} />
 
         <CardLoader show={loading} />
 
@@ -121,8 +121,8 @@ const UserListPage = memo(() => {
                 hasData={results.length > 0}
                 onTryAgain={refresh}
               />
-              {results.map(user => (
-                <ListItem key={user.id} user={user} onEdit={handleEdit} onDeleteComplete={refresh} />
+              {results.map(order => (
+                <ListItem key={order.id} order={order} onEdit={handleEdit} onDeleteComplete={refresh} />
               ))}
             </TableBody>
           </Table>
