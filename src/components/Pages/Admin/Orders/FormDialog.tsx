@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,6 +13,7 @@ import Toast from 'components/Shared/Toast';
 import { logError } from 'helpers/rxjs-operators/logError';
 import { useFormikObservable } from 'hooks/useFormikObservable';
 import IOrder from 'interfaces/models/order';
+import { toInteger } from 'lodash';
 import React, { forwardRef, Fragment, memo, useCallback } from 'react';
 import { tap } from 'rxjs/operators';
 import orderService from 'services/order';
@@ -26,7 +28,7 @@ interface IProps {
 
 const validationSchema = yup.object().shape({
   description: yup.string().required().min(3).max(1000),
-  quantity: yup.number().required(),
+  quantity: yup.number().integer().required(),
   value: yup.number().required()
 });
 
@@ -48,7 +50,7 @@ const FormDialog = memo((props: IProps) => {
     initialValues: {},
     validationSchema,
     onSubmit(model) {
-      return orderService.save(model).pipe(
+      return orderService.save({ ...model, quantity: toInteger(model.quantity) }).pipe(
         tap(order => {
           Toast.show('O pedido foi salvo.');
           props.onComplete(order);
